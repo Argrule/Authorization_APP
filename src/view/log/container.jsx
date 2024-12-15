@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from "react-router-dom";
 import './log.css'
 
 const LogContainer = (props) => {
@@ -10,6 +11,11 @@ const LogContainer = (props) => {
     const [pass, setPass] = useState('');
     const updatePass = (event) => {
         setPass(event.target.value);
+    }
+
+    const navigate = useNavigate();
+    const goRegister = () => {
+        navigate('/register');
     }
 
     return (
@@ -28,7 +34,7 @@ const LogContainer = (props) => {
                     <input className="prefix" onInput={updatePass} type="text" required placeholder="Password>" />
 
                     <button type="submit">Login</button>
-                    <nav className="link"> go to register</nav>
+                    <nav className="link" onClick={goRegister}> go to register</nav>
                 </fieldset>
             </form>
         </main>

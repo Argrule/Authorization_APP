@@ -1,4 +1,4 @@
-import { lazy,useState } from "react";
+import { lazy, useState } from "react";
 import { useRoutes, BrowserRouter } from "react-router-dom";
 import { invoke } from "@tauri-apps/api/core";
 import "./App.css";
@@ -11,10 +11,14 @@ import NotFound from "./view/notFound/notFound";
 /**
  * @fileoverview Router configuration
  */
-const router = [  
+const router = [
   {
     path: "/",
     element: <Log />,
+  },
+  {
+    path: "/register",
+    element: <LazyWrap Component={lazy(() => import("./view/register/reg"))} />,
   },
   {
     path: "/demo",
@@ -60,7 +64,7 @@ const App = () => {
   }
 
   return (
-    <BrowserRouter>      
+    <BrowserRouter>
       <GenRouter />
     </BrowserRouter>
   );
