@@ -59,7 +59,7 @@
   "sourceMap": "36:326:1:-;;;196:52;8:9:-1;5:2;;;30:1;27;20:12;5:2;196:52:1;232:10;224:5;;:18;;;;;;;;;;;;;;;;;;36:326;;;;;;",
   "deployedSourceMap": "36:326:1:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;36:326:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;86:36;;;:::i;:::-;;;;;;;;;;;;;;;;;;;61:20;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;254:105;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;254:105:1;;;;;;;;;;;;;;;;;:::i;:::-;;86:36;;;;:::o;61:20::-;;;;;;;;;;;;;:::o;254:105::-;176:5;;;;;;;;;;;162:19;;:10;:19;;;158:26;;;344:9;317:24;:36;;;;158:26;254:105;:::o",
   "source": "pragma solidity >=0.4.21 <0.7.0;\r\n\r\ncontract Migrations {\r\n  address public owner;\r\n  uint public last_completed_migration;\r\n\r\n  modifier restricted() {\r\n    if (msg.sender == owner) _;\r\n  }\r\n\r\n  constructor() public {\r\n    owner = msg.sender;\r\n  }\r\n\r\n  function setCompleted(uint completed) public restricted {\r\n    last_completed_migration = completed;\r\n  }\r\n}\r\n",
-  "sourcePath": "D:\\zproject\\z_test\\graduate_design\\Authentitation-system-based-on-bolckchain\\contracts\\Migrations.sol",
+  "sourcePath": "D:\\zproject\\tauri\\dns_demo\\contracts\\Migrations.sol",
   "ast": {
     "absolutePath": "project:/contracts/Migrations.sol",
     "exportedSymbols": {
@@ -963,8 +963,7 @@
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2024-11-25T12:25:04.735Z",
-  "networkType": "ethereum",
+  "updatedAt": "2024-12-15T13:10:04.034Z",
   "devdoc": {
     "methods": {}
   },
