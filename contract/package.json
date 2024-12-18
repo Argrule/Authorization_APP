@@ -1,0 +1,9 @@
+{
+    "name": "contract",
+    "type": "commonjs",
+    "scripts": {
+        "c": "truffle compile",
+        "m": "truffle migrate",
+        "t": "truffle test"
+    }
+}
