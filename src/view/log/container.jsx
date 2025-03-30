@@ -17,6 +17,10 @@ const LogContainer = (props) => {
     const goRegister = () => {
         navigate('/register');
     }
+    const getStatus = (event)=>{
+        event.preventDefault();
+        props.getStatus();
+    }
 
     return (
         <main>
@@ -34,6 +38,7 @@ const LogContainer = (props) => {
                     <input className="prefix" onInput={updatePass} type="text" required placeholder="Password>" />
 
                     <button type="submit">Login</button>
+                    <button onClick={getStatus}>get status</button>
                     <nav className="link" onClick={goRegister}> go to register</nav>
                 </fieldset>
             </form>

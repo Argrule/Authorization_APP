@@ -87,4 +87,12 @@ contract Authentitation {
         _to.transfer(msg.value); //向_to地址转账
         emit Transfer(msg.sender, _to, msg.value);
     }
+
+    function getUserStatus() public view returns (User memory) {
+        return addressToUser[msg.sender];
+    }
+
+    function getDemo() public pure returns (string memory) {
+        return "Hello, World!";
+    }
 }
