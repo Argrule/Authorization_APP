@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import getWeb3 from './getWeb3';
-import AuthentitationContract from "@/contracts/Authentitation.json";
+// import AuthentitationContract from "@/contracts/Authentitation.json";
+import AuthentitationContract from "../../../../z_test/graduate_design/auth/target/Auth.json";
 
 const useGetWeb3 = () => {
   const [web3, setWeb3] = useState(null);
