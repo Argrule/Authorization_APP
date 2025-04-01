@@ -12,11 +12,15 @@ export function addLeading0x(str) {
 
 export function uint8ArrayToHex(arr) {
     // without Buffer
-    return Array.from(arr).map(byte => {
-        return ('0' + (byte & 0xFF).toString(16)).slice(-2);
-    }).join('');
+    // return Array.from(arr).map(byte => {
+    //     return ('0' + (byte & 0xFF).toString(16)).slice(-2);
+    // }).join('');
+    // with Buffer
+    return Buffer.from(arr).toString('hex');
 }
 
 export function hexToUnit8Array(str) {
-    return new Uint8Array(str.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+    // return new Uint8Array(str.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+    // with Buffer
+    return Buffer.from(str, 'hex');
 }

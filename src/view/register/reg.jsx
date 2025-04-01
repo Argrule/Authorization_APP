@@ -1,13 +1,16 @@
 import useGetWeb3 from "@/web3/useGetWeb3";
 import RegUI from "./container";
+import { generateAccount } from "@/utils/privateKey";
 
 const Reg = () => {
     const { web3, accounts, contract, loading, error } = useGetWeb3();
 
     const handleRegister = async (name) => {
-        const { address, privateKey } = web3.eth.accounts.create();
+        // const { address, privateKey } = web3.eth.accounts.create();
+        const { mnemonic, privateKey, address } = generateAccount();
         localStorage.setItem("address", address);
         localStorage.setItem("privateKey", privateKey);
+        localStorage.setItem("mnemonic", mnemonic);
 
         try {
             // 获取估算的gas值

@@ -7,13 +7,35 @@ import {
     hexToUnit8Array,
     uint8ArrayToHex
 } from './util';
+import { generateMnemonic, mnemonicToSeedSync } from "@scure/bip39";
+import { wordlist } from "@scure/bip39/wordlists/simplified-chinese";
+import { hdkey } from "@ethereumjs/wallet";
+
+export function generateAccount() {
+    // 生成助记词（12 个单词）
+    const mnemonic = generateMnemonic(wordlist);
+    return generateAccountWithMnemonic(mnemonic);
+}
+export function generateAccountWithMnemonic(mnemonic) {
+    // 从助记词生成种子
+    const seed = mnemonicToSeedSync(mnemonic); // 返回 Uint8Array
+
+    // 使用 @ethereumjs/wallet 派生账户    
+    const hdwallet = hdkey.EthereumHDKey.fromMasterSeed(seed);
+    const wallet = hdwallet.derivePath("m/44'/60'/0'/0/0").getWallet();
+    const address = wallet.getAddressString();
+    const privateKey = wallet.getPrivateKeyString();
+    console.log('generated account:', { mnemonic, privateKey, address });
+    return { mnemonic, privateKey, address };
+}
+
 
 export function signMessage(message, privateKey) {
     const signature = ecdsaSign(
         hexToUnit8Array(removeLeading0x(message)),
         hexToUnit8Array(removeLeading0x(privateKey))
-    );    
-    return uint8ArrayToHex(signature.signature);    
+    );
+    return uint8ArrayToHex(signature.signature);
 }
 
 /**
@@ -36,7 +58,7 @@ export function recoverPublicKey(signature, hash) {
         recoveryNumber,
         hexToUnit8Array(removeLeading0x(hash)),
         false
-    ));    
+    ));
     // remove trailing '04'
     pubKey = pubKey.slice(2);
 
