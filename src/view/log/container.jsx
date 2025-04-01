@@ -8,37 +8,25 @@ const LogContainer = (props) => {
     const updateName = (event) => {
         setName(event.target.value);
     }
-    const [pass, setPass] = useState('');
-    const updatePass = (event) => {
-        setPass(event.target.value);
-    }
 
     const navigate = useNavigate();
     const goRegister = () => {
         navigate('/register');
     }
-    const getStatus = (event)=>{
-        event.preventDefault();
-        props.getStatus();
-    }
 
     return (
         <main>
             <form onSubmit={(event) => {
-                event.preventDefault()
-                console.log("name====>", name)
-                console.log("pass====>", pass)
-                props.login(name, pass)
+                event.preventDefault();                
+                props.login(name)
             }}
             >
                 <fieldset className="flex formField">
                     <legend>Login</legend>
-                    <span>Please input your name and password</span>
-                    <input className="prefix" onInput={updateName} type="text" required placeholder="Name>" />
-                    <input className="prefix" onInput={updatePass} type="text" required placeholder="Password>" />
+                    <span>Please input your name</span>
+                    <input className="prefix" onInput={updateName} type="text" required placeholder="Name>" />                    
 
-                    <button type="submit">Login</button>
-                    <button onClick={getStatus}>get status</button>
+                    <button type="submit">Login</button>                    
                     <nav className="link" onClick={goRegister}> go to register</nav>
                 </fieldset>
             </form>

@@ -8,35 +8,46 @@ const RegContainer = (props) => {
     const updateName = (event) => {
         setName(event.target.value);
     }
-    const [pass, setPass] = useState('');
-    const updatePass = (event) => {
-        setPass(event.target.value);
-    }
 
     const navigate = useNavigate();
     const goLogin = () => {
         navigate('/');
     }
 
+    /**
+     * 根据点击的按钮，执行不同的操作     
+     */
+    const handleOperation = async (e) => {
+        e.preventDefault();
+        switch (e.nativeEvent.submitter.name) {
+            case 'register':
+                props.register(name);
+                break;
+            case 'test':
+                props.test(name);
+                break;
+        }
+    }
     return (
         <main>
-            <form onSubmit={(event) => {
-                event.preventDefault()
-                console.log("name====>", name)
-                console.log("pass====>", pass)
-                props.register(name, pass)
-            }}
-            >
+            <form onSubmit={handleOperation}>
                 <fieldset className="flex formField">
                     <legend>Register</legend>
-                    <span>Please input your name and password</span>
+                    <span>Please input your name</span>
                     <input className="prefix" onInput={updateName} type="text" required placeholder="Name>" />
-                    <input className="prefix" onInput={updatePass} type="text" required placeholder="Password>" />
-
-                    <button type="submit">Register</button>
+                    <button name="test">Ready?</button>
+                    <button type="submit" name="register">Register</button>
                     <nav className="link" onClick={goLogin}> go to Login</nav>
                 </fieldset>
             </form>
+            <dialog id="confirmDialog">
+                <h2>确认操作</h2>
+                <p id="dialogMessage"></p>
+                <div>
+                    <button >确定</button>
+                    <button >取消</button>
+                </div>
+            </dialog>
         </main>
     )
 }

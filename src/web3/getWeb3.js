@@ -31,6 +31,10 @@ const getWeb3 = () =>
                 );
                 const web3 = new Web3(provider);
                 console.log("No web3 instance injected, using Local web3.");
+                // 挂载到全局对象上
+                Object.defineProperty(window, "web3", {
+                    value: web3
+                });
                 resolve(web3);
             }
         };

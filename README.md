@@ -27,3 +27,13 @@ pnpm test # or truffle test --config truffle-config.cjs
 ```bash
 pnpm run tauri dev
 ```
+
+### Next 
+
+- [ ] 配置config页面，输入用户以太坊地址/私钥存入wallet+以太坊节点网络ip
+- [ ] 读取私钥页面，或者在页面上显示私钥方便记忆，或许可以变换成助记词
+- [ ] 登录认证完成之后发放token，token可以用来作为加密通信的对称密钥
+- [X] 移植到rust完成web3交互
+- [Y] 使用 http 完成前后端交互
+- [Y] localstorage 保存私钥
+- [ ] 精简contract
