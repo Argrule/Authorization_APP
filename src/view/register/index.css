@@ -7,23 +7,6 @@
     background-color: #111317;
 }
 
-.prefix {
-    transition: all 0.5s ease;
-
-    &:focus {
-        transform: scale(1.1);
-    }
-}
-
-.prefix::placeholder {
-    transition: transform 0.5s ease;    
-}
-
-.prefix:focus::placeholder {
-    color: #0dbc79;
-    transform: scale(0.7) translate(-20%, -50%);
-}
-
 /* .prefix-label::before {
     content: attr(data-prefix);
 } */

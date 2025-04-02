@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import './log.css'
 
@@ -9,6 +9,9 @@ const LogContainer = (props) => {
         setName(event.target.value);
     }
 
+    useEffect(() => {
+        setName(localStorage.getItem("name") || "");
+    }, [])
     const navigate = useNavigate();
     const goRegister = () => {
         navigate('/register');
@@ -17,16 +20,15 @@ const LogContainer = (props) => {
     return (
         <main>
             <form onSubmit={(event) => {
-                event.preventDefault();                
+                event.preventDefault();
                 props.login(name)
             }}
             >
                 <fieldset className="flex formField">
                     <legend>Login</legend>
-                    <span>Please input your name</span>
-                    <input className="prefix" onInput={updateName} type="text" required placeholder="Name>" />                    
+                    <input className="prefix" onInput={updateName} type="text" required placeholder="Name>" value={name} />
 
-                    <button type="submit">Login</button>                    
+                    <button type="submit">Login</button>
                     <nav className="link" onClick={goRegister}> go to register</nav>
                 </fieldset>
             </form>

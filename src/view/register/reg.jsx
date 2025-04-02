@@ -3,20 +3,21 @@ import RegUI from "./container";
 import { generateAccount } from "@/utils/privateKey";
 
 const Reg = () => {
-    const { web3, accounts, contract, loading, error } = useGetWeb3();
+    const { web3, account, contract, loading, error } = useGetWeb3();
 
     const handleRegister = async (name) => {
         // const { address, privateKey } = web3.eth.accounts.create();
         const { mnemonic, privateKey, address } = generateAccount();
-        localStorage.setItem("address", address);
-        localStorage.setItem("privateKey", privateKey);
-        localStorage.setItem("mnemonic", mnemonic);
 
         try {
             // 获取估算的gas值
-            const gasEstimate = await contract.methods.register(name, address).estimateGas();            
-            const receipt = await contract.methods.register(name, address).send({ from: accounts[0], gasLimit: gasEstimate * 2n });
+            const gasEstimate = await contract.methods.register(name, address).estimateGas({ from: account });
+            const receipt = await contract.methods.register(name, address).send({ from: account, gasLimit: gasEstimate * 2n });
             alert("Register success");
+            localStorage.setItem("name", name);
+            localStorage.setItem("addr", address);
+            localStorage.setItem("pvk", privateKey);
+            localStorage.setItem("mnemonic", mnemonic);
             return receipt;
         } catch (error) {
             alert("Register failed");

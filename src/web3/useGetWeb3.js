@@ -5,7 +5,7 @@ import AuthentitationContract from "../../../../z_test/graduate_design/auth/targ
 
 const useGetWeb3 = () => {
   const [web3, setWeb3] = useState(null);
-  const [accounts, setAccounts] = useState(null);
+  const [account, setAccount] = useState("");
   const [contract, setContract] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -19,7 +19,7 @@ const useGetWeb3 = () => {
 
         // 获取账户列表
         const accounts = await web3Instance.eth.getAccounts();
-        setAccounts(accounts);
+        setAccount(localStorage.getItem('address') || accounts[0]);
 
         // 获取网络 ID
         const networkId = await web3Instance.eth.net.getId();
@@ -46,7 +46,7 @@ const useGetWeb3 = () => {
     fn();
   }, []);
 
-  return { web3, accounts, contract, loading, error };
+  return { web3, account, contract, loading, error };
 };
 
 export default useGetWeb3;

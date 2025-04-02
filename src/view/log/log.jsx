@@ -1,20 +1,27 @@
 import useGetWeb3 from "@/web3/useGetWeb3";
 import LogUI from "./container";
-import { recoverPublicKey, signMessage } from "@/utils/privateKey";
+import { generateAccountWithMnemonic, recoverPublicKey, signMessage } from "@/utils/privateKey";
 import { start, login } from "@/api/auth";
 
 const Log = () => {
-  const { web3, accounts, contract, loading, error } = useGetWeb3();
+  const { web3, account, contract, loading, error } = useGetWeb3();
 
   const handleLogin = async (name) => {
     const uuid = await start(name);
-    const pvtK = localStorage.getItem("privateKey");
+    let pvtK = localStorage.getItem("pvk");
+    if (!pvtK) {
+      const mnemonic = localStorage.getItem("mnemonic");
+      const { privateKey, address } = generateAccountWithMnemonic(mnemonic);
+      pvtK = privateKey;
+      localStorage.setItem("pvk", pvtK);
+      localStorage.setItem("addr", address);
+    }
     // 使用私钥对消息进行签名
-    const { signature } = web3.eth.accounts.sign(uuid, pvtK);    
+    const { signature } = web3.eth.accounts.sign(uuid, pvtK);
     const res = await login(name, uuid, signature);
     if (res) {
       alert("Login success");
-    }else{
+    } else {
       alert("Login failed");
     }
   }

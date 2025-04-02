@@ -5,20 +5,31 @@
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafb);
 }
+
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
-  line-height: 24px;
+  line-height: 1.5;
   font-weight: 400;
 
-  color: #0f0f0f;
-  background-color: #f6f6f6;
+  color-scheme: light dark;
+  color: #f9f9f9;
+  background-color: #111317;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  min-width: 320px;
+  min-height: 100vh;
 }
 
 .container {
@@ -63,13 +74,12 @@ h1 {
 input,
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 1px solid #d9d9d9;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  color: #0f0f0f;
-  background-color: #ffffff;
+  background-color: #1a1a1a;
   transition: border-color 0.25s;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 }
@@ -78,16 +88,24 @@ button {
   cursor: pointer;
 }
 
-button:hover {
-  border-color: #396cd8;
-}
-button:active {
-  border-color: #396cd8;
-  background-color: #e8e8e8;
+input:hover {
+  border-color: #4096ff;
 }
 
-input,
-button {
+input:focus {
+  border-color: #1677ff;
+}
+
+button:hover {
+  border-color: #646cff;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+input {
   outline: none;
 }
 
@@ -95,29 +113,26 @@ button {
   margin-right: 5px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    color: #f6f6f6;
-    background-color: #2f2f2f;
-  }
-
-  a:hover {
-    color: #24c8db;
-  }
-
-  input,
-  button {
-    color: #ffffff;
-    background-color: #0f0f0f98;
-  }
-  button:active {
-    background-color: #0f0f0f69;
-  }
-}
-
 /* custom css */
 .flex {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.prefix {
+  transition: all 0.5s ease;
+
+  &:focus {
+    transform: scale(1.1);
+  }
+}
+
+.prefix::placeholder {
+  transition: transform 0.5s ease;
+}
+
+.prefix:focus::placeholder {
+  color: #0dbc79;
+  transform: scale(0.7) translate(-20%, -50%);
 }
