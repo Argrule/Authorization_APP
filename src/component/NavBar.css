@@ -1,0 +1,68 @@
+/* 底部导航栏 */
+.navbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: rgba(43, 43, 43, 0.9);
+    /* 半透明白色背景 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    /* 毛玻璃效果，增强现代感 */
+}
+
+/* 导航项 */
+.nav-item {
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* 平滑过渡 */
+    border-radius: 8px;
+}
+
+/* Hover效果 */
+.nav-item:hover {
+    background: rgba(13, 128, 111, 0.2);
+    /* 悬浮时背景变色 */
+    transform: translateY(-5px);
+    /* 轻微上移 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 可选：激活状态 */
+.nav-item:active {
+    transform: translateY(0);
+    /* 点击时恢复位置 */
+}
+
+.nav-item.active {
+    color: rgba(13, 128, 111, 0.9);
+    transform: scale(1.1);
+}
+
+/* 如果想要侧边导航栏，替换为以下样式 */
+/*
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 80px; 
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item:hover {
+    transform: translateX(5px); 
+}
+*/

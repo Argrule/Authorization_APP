@@ -8,6 +8,7 @@ import getWeb3 from "./web3/getWeb3";
 import Log from "./view/log/log";
 import Config from "./view/config";
 import NotFound from "./view/notFound/notFound";
+import NavBar from "./component/NavBar";
 
 /**
  * @fileoverview Router configuration
@@ -24,6 +25,10 @@ const router = [
   {
     path: "/register",
     element: <LazyWrap Component={lazy(() => import("./view/register/reg"))} />,
+  },
+  {
+    path: "/settings",
+    element: <LazyWrap Component={lazy(() => import("./view/destroy"))} />,
   },
   {
     path: "/demo",
@@ -71,6 +76,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <GenRouter />
+      <NavBar />
     </BrowserRouter>
   );
 }

@@ -23,6 +23,12 @@
   -webkit-text-size-adjust: 100%;
 }
 
+#root {
+  & main {
+    margin-bottom: 60px;
+  }
+}
+
 body {
   margin: 0;
   display: flex;
