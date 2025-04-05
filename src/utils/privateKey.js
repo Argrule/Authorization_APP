@@ -16,6 +16,11 @@ export function generateAccount() {
     const mnemonic = generateMnemonic(wordlist);
     return generateAccountWithMnemonic(mnemonic);
 }
+/**
+ * 恢复/生成账户
+ * @param {string} mnemonic 
+ * @returns 
+ */
 export function generateAccountWithMnemonic(mnemonic) {
     // 从助记词生成种子
     const seed = mnemonicToSeedSync(mnemonic); // 返回 Uint8Array

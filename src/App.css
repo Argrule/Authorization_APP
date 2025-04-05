@@ -104,11 +104,14 @@ input:focus {
 
 button:hover {
   border-color: #646cff;
+  color: #646cff;
 }
 
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+button:focus-visible,
+button:focus {
+  outline: none;
+  border-color: #646cff;
+  color: #646cff;
 }
 
 input {
@@ -141,4 +144,27 @@ input {
 .prefix:focus::placeholder {
   color: #0dbc79;
   transform: scale(0.7) translate(-20%, -50%);
+}
+
+.input-wrapper {
+  position: relative;
+
+  & .input-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+
+    &:hover::after {
+      content: 'generate a pair of keys';
+      position: absolute;
+      background-color: rgba(13, 128, 111, 0.8);
+      border-radius: 8px;
+      width: 11em;
+      text-align: center;
+      transform: translate(-50%, -1.5em);
+      color: white;
+    }
+  }
 }

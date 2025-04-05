@@ -10,7 +10,7 @@
     padding: 2em;
 }
 
-.card>.item {
+.card .item {
     min-width: 16em;
     background-color: #111317;
     color: #0dbc79;

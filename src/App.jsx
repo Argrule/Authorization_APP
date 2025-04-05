@@ -28,7 +28,7 @@ const router = [
   },
   {
     path: "/settings",
-    element: <LazyWrap Component={lazy(() => import("./view/destroy"))} />,
+    element: <LazyWrap Component={lazy(() => import("./view/settings"))} />,
   },
   {
     path: "/demo",
