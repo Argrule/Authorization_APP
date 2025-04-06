@@ -8,7 +8,7 @@ const NavBar = () => {
         { id: 1, name: 'Config', path: '/' },
         { id: 2, name: 'Login', path: '/log' },
         { id: 3, name: 'Register', path: '/register' },
-        { id: 4, name: 'Revoke & Update', path: '/settings' },
+        { id: 4, name: 'Settings', path: '/settings' },
     ];
 
     const handleNavClick = (path) => {
