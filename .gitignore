@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 # contracts
-src/contracts/*
+src/contract/*
