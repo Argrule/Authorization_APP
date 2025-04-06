@@ -28,6 +28,47 @@ pnpm test # or truffle test --config truffle-config.cjs
 pnpm run tauri dev
 ```
 
+### operation
+
+#### config page 
+
+1. 配置当前登录要使用的 id + 助记词
+2. 配置待连接以太坊节点的ip和端口、账户私钥和地址
+3. ctrl + s 保存配置
+
+#### login page 
+
+展示当前登录的 id + 私钥
+
+#### register page 
+
+1. ready? 查看当前 id 是否被注册
+2. register 生成一对助记词和地址，注册到区块链上
+3. 生成的助记词、地址、私钥会被存储到本地，效果等于config page
+
+#### setting page 
+
+1. 仅填入id + 助记词，用于注销
+2. 点击图标可以生成新的助记词和地址
+3. 生成新地址后，点击可以更换已发布的地址
+
+### core plugins
+
+- web3.js  调用合约、哈希、签名、验证
+- secp256k1 椭圆曲线签名、验证
+- @scure/bip39 @ethereumjs/wallet 生成助记词和私钥
+- eciesjs  ECIES加密解密（结合ECDH和AES）
+
+### Security Improvements
+
+- [Y] 通过服务端缓存uuid，比对预防重发攻击
+- [Y] 通过区块链存储用户的公钥，防止伪造
+- [Y] 通过智能合约获取公钥，中间过程不经过网络信道，无法被干预
+- [Y] 通过智能合约限制注册用户的数量，防止恶意注册
+- [Y] 通过智能合约验证用户的身份，防止PKI被无权限人篡改
+- [Y] 隐藏签名，注册时不暴露签名，只有销毁时使用签名（规定对id签名，不可能uuid重合），防止被重放攻击
+- [Y] 通过公私钥加密，防止中间人攻击
+
 ### Next 
 
 - [ ] 配置config页面，输入用户以太坊地址/私钥存入wallet+以太坊节点网络ip

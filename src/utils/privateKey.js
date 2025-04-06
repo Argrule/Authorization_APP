@@ -10,6 +10,7 @@ import {
 import { generateMnemonic, mnemonicToSeedSync } from "@scure/bip39";
 import { wordlist } from "@scure/bip39/wordlists/simplified-chinese";
 import { hdkey } from "@ethereumjs/wallet";
+import { encrypt, decrypt } from "eciesjs";
 
 export function generateAccount() {
     // 生成助记词（12 个单词）
@@ -68,4 +69,19 @@ export function recoverPublicKey(signature, hash) {
     pubKey = pubKey.slice(2);
 
     return pubKey;
+}
+
+export function encryptWithPublicKey(message, publicKey) {
+    return encrypt(
+        Buffer.from(removeLeading0x(publicKey), "hex"),
+        Buffer.from(message)
+    ).toString("hex");
+}
+
+export function decryptWithPrivateKey(encryptedHex, privateKey) {
+    const decrypted = decrypt(
+        Buffer.from(removeLeading0x(privateKey), "hex"),
+        Buffer.from(encryptedHex, "hex")
+    );
+    return decrypted.toString();
 }

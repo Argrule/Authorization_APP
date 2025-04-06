@@ -1,6 +1,6 @@
 import useGetWeb3 from "@/web3/useGetWeb3";
 import LogUI from "./container";
-import { generateAccountWithMnemonic, recoverPublicKey, signMessage } from "@/utils/privateKey";
+import { generateAccountWithMnemonic, decryptWithPrivateKey } from "@/utils/privateKey";
 import { start, login } from "@/api/auth";
 
 const Log = () => {
@@ -18,8 +18,11 @@ const Log = () => {
     }
     // 使用私钥对消息进行签名
     const { signature } = web3.eth.accounts.sign(uuid, pvtK);
-    const res = await login(name, uuid, signature);
-    if (res) {
+    const ec_msg = await login(name, uuid, signature);
+    if (ec_msg) {
+      // 私钥进行解密
+      const dc_msg = decryptWithPrivateKey(ec_msg, pvtK);      
+      localStorage.setItem("token", dc_msg);
       alert("Login success");
     } else {
       alert("Login failed");
