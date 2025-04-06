@@ -32,15 +32,17 @@ const Settings = () => {
             const gasEstimate = await contract.methods.destroy(name, sig).estimateGas({ from: account });
             const receipt = await contract.methods.destroy(name, sig).send({ from: account, gasLimit: gasEstimate * 2n });
             console.log("Transaction receipt:", receipt);
+            alert("注销成功");
         } catch (error) {
             console.error("Error during transaction:", error);
         }
     }
     const myReplace = async (sig) => {
         try {
-            const gasEstimate = await contract.methods.modify(name, sig, newAddress).estimateGas({ from: account });
-            const receipt = await contract.methods.modify(name, sig, newAddress).send({ from: account, gasLimit: gasEstimate * 2n });
+            const gasEstimate = await contract.methods.modify(name, newAddress, sig).estimateGas({ from: account });
+            const receipt = await contract.methods.modify(name, newAddress, sig).send({ from: account, gasLimit: gasEstimate * 2n });
             console.log("Transaction receipt:", receipt);
+            alert("更换成功");
         } catch (error) {
             console.error("Error during transaction:", error);
         }
@@ -51,9 +53,8 @@ const Settings = () => {
             alert("Name and current mnemonic are required");
             return;
         }
-        const { privateKey, address: a_test, mnemonic: m_t } = generateAccountWithMnemonic(mnemonic);
+        const { privateKey } = generateAccountWithMnemonic(mnemonic);
         const { signature } = web3.eth.accounts.sign(name, privateKey);
-        console.log("signature", signature, a_test, m_t);
 
         if (newAddress === "" && newMnemonic === "") {
             // 注销（Revoke）逻辑
