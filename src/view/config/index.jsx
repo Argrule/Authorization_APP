@@ -1,6 +1,6 @@
 import './index.css';
-import { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from 'react';
+import { generateAccountWithMnemonic } from '@/utils/privateKey';
 
 const Config = () => {
     const [name, setName] = useState("");
@@ -8,16 +8,55 @@ const Config = () => {
     const [provider, setProvider] = useState("");
     const [address, setAddress] = useState("");
     const [privateKey, setPrivateKey] = useState("");
-    const navigate = useNavigate();
+    // const isMounted = useRef(false); // 用于判断组件是否挂载    
+    const dataRef = useRef({ name, mnemonic, provider, address, privateKey });
+
+    // 同步更新 ref
+    useEffect(() => {
+        dataRef.current = { name, mnemonic, provider, address, privateKey };
+    }, [name, mnemonic, provider, address, privateKey]);
 
     useEffect(() => {
+        // if (!isMounted.current) return () => isMounted.current = true;
+
         setName(localStorage.getItem("name") || "");
         setMnemonic(localStorage.getItem("mnemonic") || "");
         setProvider(localStorage.getItem("provider") || "");
         setAddress(localStorage.getItem("address") || "");
         setPrivateKey(localStorage.getItem("privateKey") || "");
-    }, [])
 
+        /**
+         * 监听ctrl + s保存
+         */
+        const handleSave = (event) => {
+            if (!(event.ctrlKey && event.key === 's')) return;
+
+            const { name, mnemonic, provider, address, privateKey } = dataRef.current;
+            localStorage.setItem("name", name);
+            localStorage.setItem("provider", provider || "http://127.0.0.1:7545");
+            localStorage.setItem("address", address);
+            localStorage.setItem("privateKey", privateKey);
+
+            if (mnemonic !== localStorage.getItem("mnemonic")) {
+                localStorage.setItem("mnemonic", mnemonic);
+                if (mnemonic) {
+                    const { privateKey: pvk, address: addr } = generateAccountWithMnemonic(mnemonic);
+                    localStorage.setItem("pvk", pvk);
+                    localStorage.setItem("addr", addr);
+                } else {
+                    localStorage.removeItem("pvk");
+                    localStorage.removeItem("addr");
+                }
+            }
+            alert("保存成功");
+        }
+        // 添加事件监听器
+        window.addEventListener('keydown', handleSave);
+        // 清理函数
+        return () => {
+            window.removeEventListener('keydown', handleSave);
+        };
+    }, [])
 
     const handleInput = (e) => {
         const { name, value } = e.target;
@@ -41,21 +80,6 @@ const Config = () => {
                 break;
         }
     };
-    const handleEnter = (e) => {
-        if (e.key !== 'Enter') {
-            return;
-        }
-        // if ((name && mnemonic).trim() === "") {
-        //     alert("Name is required");
-        //     return;
-        // }
-        localStorage.setItem("name", name);
-        localStorage.setItem("mnemonic", mnemonic);
-        localStorage.setItem("provider", provider || "http://127.0.0.1:7545");
-        localStorage.setItem("address", address);
-        localStorage.setItem("privateKey", privateKey);
-        navigate('/log');
-    }
 
     return (
         <main className="card" autoComplete="off">
@@ -88,7 +112,7 @@ const Config = () => {
             <input
                 name="address"
                 className="item prefix"
-                placeholder="address of ethereum>"
+                placeholder="address of wallet>"
                 autoComplete="new-password"
                 value={address}
                 onChange={handleInput}
@@ -96,11 +120,10 @@ const Config = () => {
             <input
                 name="privateKey"
                 className="item prefix"
-                placeholder="private key of ethereum>"
+                placeholder="private key of wallet>"
                 autoComplete="new-password"
                 value={privateKey}
                 onChange={handleInput}
-                onKeyDown={handleEnter}
             />
         </main>
     )
