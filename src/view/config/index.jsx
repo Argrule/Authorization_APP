@@ -1,8 +1,10 @@
 import './index.css';
 import { useEffect, useRef, useState } from 'react';
 import { generateAccountWithMnemonic } from '@/utils/privateKey';
+import useGetWeb3 from '@/web3/useGetWeb3';
 
 const Config = () => {
+    const { web3 } = useGetWeb3();
     const [name, setName] = useState("");
     const [mnemonic, setMnemonic] = useState("");
     const [provider, setProvider] = useState("");
@@ -18,13 +20,14 @@ const Config = () => {
 
     useEffect(() => {
         // if (!isMounted.current) return () => isMounted.current = true;
-
         setName(localStorage.getItem("name") || "");
         setMnemonic(localStorage.getItem("mnemonic") || "");
         setProvider(localStorage.getItem("provider") || "");
         setAddress(localStorage.getItem("address") || "");
         setPrivateKey(localStorage.getItem("privateKey") || "");
+    }, []);
 
+    useEffect(() => {
         /**
          * 监听ctrl + s保存
          */
@@ -40,13 +43,22 @@ const Config = () => {
             if (mnemonic !== localStorage.getItem("mnemonic")) {
                 localStorage.setItem("mnemonic", mnemonic);
                 if (mnemonic) {
-                    const { privateKey: pvk, address: addr } = generateAccountWithMnemonic(mnemonic);
-                    localStorage.setItem("pvk", pvk);
-                    localStorage.setItem("addr", addr);
+                    try {
+                        const { privateKey: pvk, address: addr } = generateAccountWithMnemonic(mnemonic);
+                        localStorage.setItem("pvk", pvk);
+                        localStorage.setItem("addr", addr);
+                    } catch (error) {
+                        alert("Invalid mnemonic");
+                        throw Error("Invalid mnemonic");
+                    }
                 } else {
                     localStorage.removeItem("pvk");
                     localStorage.removeItem("addr");
                 }
+            }
+            // 添加账户钱包
+            if (!!privateKey) {
+                web3.eth.accounts.wallet.add(privateKey);
             }
             alert("保存成功");
         }
@@ -56,7 +68,7 @@ const Config = () => {
         return () => {
             window.removeEventListener('keydown', handleSave);
         };
-    }, [])
+    }, [web3]);
 
     const handleInput = (e) => {
         const { name, value } = e.target;

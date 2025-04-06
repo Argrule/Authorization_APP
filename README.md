@@ -55,7 +55,7 @@ pnpm run tauri dev
 ### core plugins
 
 - web3.js  调用合约、哈希、签名、验证
-- secp256k1 椭圆曲线签名、验证
+- secp256k1 椭圆曲线签名恢复公钥，公钥用于后续加密
 - @scure/bip39 @ethereumjs/wallet 生成助记词和私钥
 - eciesjs  ECIES加密解密（结合ECDH和AES）
 
@@ -71,13 +71,13 @@ pnpm run tauri dev
 
 ### Next 
 
-- [ ] 配置config页面，输入用户以太坊地址/私钥存入wallet+以太坊节点网络ip
+- [Y] 配置config页面，输入用户以太坊地址/私钥存入wallet+以太坊节点网络ip
 - [Y] 读取私钥页面，或者在页面上显示私钥方便记忆，或许可以变换成助记词 bip39+@ethereumjs/wallet
 - [ ] 登录认证完成之后发放token，token可以用来作为加密通信的对称密钥
 - [X] 移植到rust完成web3交互 --没有必要加一层ipc通信
 - [Y] 使用 http 完成前后端交互
 - [Y] localstorage 保存私钥
-- [ ] 精简contract
+- [Y] 精简contract
 - [ ] 前端原生弹窗实现
 - [Y] 注销功能，更新密钥功能
 - [Y] 登录不要求提供助记词，config配置助记词，登录显示私钥且无法修改并脱敏
