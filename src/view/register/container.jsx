@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from "react-router-dom";
 import './index.css'
 
 const RegContainer = (props) => {
 
     const [name, setName] = useState('');
+    const [isShow, setIsShow] = useState(false);
+    const [mnemonic, setMnemonic] = useState("");
     const updateName = (event) => {
         setName(event.target.value);
     }
@@ -12,11 +13,6 @@ const RegContainer = (props) => {
     useEffect(() => {
         setName(localStorage.getItem("name") || "");
     }, [])
-
-    const navigate = useNavigate();
-    const goLogin = () => {
-        navigate('/log');
-    }
 
     /**
      * 根据点击的按钮，执行不同的操作     
@@ -26,6 +22,7 @@ const RegContainer = (props) => {
         switch (e.nativeEvent.submitter.name) {
             case 'register':
                 props.register(name);
+                setMnemonic(localStorage.getItem("mnemonic") || "");
                 break;
             case 'test':
                 props.test(name);
@@ -38,13 +35,23 @@ const RegContainer = (props) => {
                 <fieldset className="flex formField">
                     <legend>Register</legend>
                     <input className="prefix" onInput={updateName} type="text" required placeholder="Name>" value={name} />
+                    {/* 待生成的助记词 */}
+                    <div className="show-mnemonic">
+                        <input
+                            type={isShow ? "text" : "password"}
+                            placeholder="mnemonic generating>"
+                            value={mnemonic}
+                            readOnly // 禁用输入框
+                        />
+                        <span className="show-icon" onClick={() => setIsShow(!isShow)}>
+                            {isShow ? "🙉" : "🙈"}
+                        </span>
+                    </div>
                     <button name="test">Ready?</button>
                     <button type="submit" name="register">Register</button>
-                    <nav className="link" onClick={goLogin}> go to Login</nav>
                 </fieldset>
             </form>
-            {/* 展示助记词 */}
-            {!localStorage.getItem("mnemonic") ? "" : "助记词：" + localStorage.getItem("mnemonic")}
+
             <dialog id="confirmDialog">
                 <h2>确认操作</h2>
                 <p id="dialogMessage"></p>
