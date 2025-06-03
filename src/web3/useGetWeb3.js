@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import getWeb3 from './getWeb3';
 import AuthentitationContract from "@/contract/Auth.json";
+import { alertDialog } from '@/component/DialogProvider';
+
 
 const useGetWeb3 = () => {
   const [web3, setWeb3] = useState(null);
@@ -34,9 +36,8 @@ const useGetWeb3 = () => {
 
         setContract(instance);
       } catch (error) {
-        setError(error);
-        console.error(error);
-        alert('Failed to load web3, accounts, or contract. Check console for details.');
+        setError(error);        
+        alertDialog("加载 Web3 或合约失败，请检查网络连接或合约配置。");
       } finally {
         setLoading(false);
       }

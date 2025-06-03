@@ -36,6 +36,7 @@ const Settings = () => {
             alertDialog("注销成功");
         } catch (error) {
             console.error("Error during transaction:", error);
+            alertDialog("注销失败，请检查区块链连接和输入信息");
         }
     }
     const myReplace = async (sig) => {
@@ -46,23 +47,35 @@ const Settings = () => {
             alertDialog("更换成功");
         } catch (error) {
             console.error("Error during transaction:", error);
+            alertDialog("更换失败，请检查区块链连接和输入信息");
         }
     }
 
     const handleSubmit = async () => {
         if (!name || !mnemonic) {
-            alertDialog("Name and current mnemonic are required");
+            alertDialog("名称和助记词不能为空");
             return;
         }
-        const { privateKey } = generateAccountWithMnemonic(mnemonic);
-        const { signature } = web3.eth.accounts.sign(name, privateKey);
-
+        let privateKey;
+        try {
+            privateKey = generateAccountWithMnemonic(mnemonic).privateKey;
+        } catch (err) {
+            alertDialog("助记词无效，无法生成私钥");
+            return;
+        }
+        let signature;
+        try {
+            signature = web3.eth.accounts.sign(name, privateKey).signature;
+        } catch (err) {
+            alertDialog("签名失败，请检查Web3和私钥");
+            return;
+        }
         if (newAddress === "" && newMnemonic === "") {
             // 注销（Revoke）逻辑
-            myDestroy(signature);
+            await myDestroy(signature);
         } else {
             // 更换（Replace）逻辑
-            myReplace(signature);
+            await myReplace(signature);
         }
     };
 
