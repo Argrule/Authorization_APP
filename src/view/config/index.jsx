@@ -2,6 +2,7 @@ import './index.css';
 import { useEffect, useRef, useState } from 'react';
 import { generateAccountWithMnemonic } from '@/utils/privateKey';
 import useGetWeb3 from '@/web3/useGetWeb3';
+import { alertDialog } from '@/component/DialogProvider';
 
 const Config = () => {
     const { web3 } = useGetWeb3();
@@ -48,7 +49,7 @@ const Config = () => {
                         localStorage.setItem("pvk", pvk);
                         localStorage.setItem("addr", addr);
                     } catch (error) {
-                        alert("Invalid mnemonic");
+                        alertDialog("Invalid mnemonic");
                         throw Error("Invalid mnemonic");
                     }
                 } else {
@@ -60,7 +61,7 @@ const Config = () => {
             if (!!privateKey) {
                 web3.eth.accounts.wallet.add(privateKey);
             }
-            alert("保存成功");
+            alertDialog("保存成功");
         }
         // 添加事件监听器
         window.addEventListener('keydown', handleSave);

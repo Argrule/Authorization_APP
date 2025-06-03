@@ -2,6 +2,7 @@ import useGetWeb3 from "@/web3/useGetWeb3";
 import LogUI from "./container";
 import { generateAccountWithMnemonic, decryptWithPrivateKey } from "@/utils/privateKey";
 import { start, login } from "@/api/auth";
+import { alertDialog } from '@/component/DialogProvider';
 
 const Log = () => {
   const { web3, account, contract, loading, error } = useGetWeb3();
@@ -23,9 +24,9 @@ const Log = () => {
       // 私钥进行解密
       const dc_msg = decryptWithPrivateKey(ec_msg, pvtK);
       localStorage.setItem("token", dc_msg);
-      alert("Login success");
+      alertDialog("Login success");
     } else {
-      alert("Login failed");
+      alertDialog("Login failed");
     }
   }
   const getStatus = async (name) => {

@@ -9,6 +9,7 @@ import Log from "./view/log/log";
 import Config from "./view/config";
 import NotFound from "./view/notFound/notFound";
 import NavBar from "./component/NavBar";
+import DialogProvider from "./component/DialogProvider";
 
 /**
  * @fileoverview Router configuration
@@ -50,7 +51,6 @@ const GenRouter = () => {
   return routing;
 };
 
-
 const App = () => {
   const [greetMsg, setGreetMsg] = useState("");
   const [name, setName] = useState("");
@@ -74,10 +74,12 @@ const App = () => {
   }
 
   return (
-    <BrowserRouter>
-      <GenRouter />
-      <NavBar />
-    </BrowserRouter>
+    <DialogProvider>
+      <BrowserRouter>
+        <GenRouter />
+        <NavBar />
+      </BrowserRouter>
+    </DialogProvider>
   );
 }
 export default App;

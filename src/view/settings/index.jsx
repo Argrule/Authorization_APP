@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { generateAccount, generateAccountWithMnemonic } from '@/utils/privateKey';
 import useGetWeb3 from '@/web3/useGetWeb3';
+import { alertDialog } from '@/component/DialogProvider';
 
 const Settings = () => {
     const { web3, account, contract } = useGetWeb3();
@@ -32,7 +33,7 @@ const Settings = () => {
             const gasEstimate = await contract.methods.destroy(name, sig).estimateGas({ from: account });
             const receipt = await contract.methods.destroy(name, sig).send({ from: account, gasLimit: gasEstimate * 2n });
             console.log("Transaction receipt:", receipt);
-            alert("注销成功");
+            alertDialog("注销成功");
         } catch (error) {
             console.error("Error during transaction:", error);
         }
@@ -42,7 +43,7 @@ const Settings = () => {
             const gasEstimate = await contract.methods.modify(name, newAddress, sig).estimateGas({ from: account });
             const receipt = await contract.methods.modify(name, newAddress, sig).send({ from: account, gasLimit: gasEstimate * 2n });
             console.log("Transaction receipt:", receipt);
-            alert("更换成功");
+            alertDialog("更换成功");
         } catch (error) {
             console.error("Error during transaction:", error);
         }
@@ -50,7 +51,7 @@ const Settings = () => {
 
     const handleSubmit = async () => {
         if (!name || !mnemonic) {
-            alert("Name and current mnemonic are required");
+            alertDialog("Name and current mnemonic are required");
             return;
         }
         const { privateKey } = generateAccountWithMnemonic(mnemonic);

@@ -1,6 +1,7 @@
 import useGetWeb3 from "@/web3/useGetWeb3";
 import RegUI from "./container";
 import { generateAccount } from "@/utils/privateKey";
+import { alertDialog } from '@/component/DialogProvider';
 
 const Reg = () => {
     const { web3, account, contract, loading, error } = useGetWeb3();
@@ -13,14 +14,14 @@ const Reg = () => {
             // 获取估算的gas值
             const gasEstimate = await contract.methods.register(name, address).estimateGas({ from: account });
             const receipt = await contract.methods.register(name, address).send({ from: account, gasLimit: gasEstimate * 2n });
-            alert("Register success");
+            alertDialog("Register success");
             localStorage.setItem("name", name);
             localStorage.setItem("addr", address);
             localStorage.setItem("pvk", privateKey);
             localStorage.setItem("mnemonic", mnemonic);
             return receipt;
         } catch (error) {
-            alert("Register failed");
+            alertDialog("Register failed");
             console.error("Error during registration:", error);
         }
     };
@@ -30,9 +31,9 @@ const Reg = () => {
             const pubAddr = await contract.methods.verify(name).call();
             // 解析16进制的数值，判断是否为0
             if (parseInt(pubAddr, 16) === 0) {
-                alert("User not registered, Yes");
+                alertDialog("User not registered, Yes");
             } else {
-                alert("User registered, No!!!!");
+                alertDialog("User registered, No!!!!");
                 console.log(pubAddr);
             }
         } catch (error) {

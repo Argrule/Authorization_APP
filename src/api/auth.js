@@ -1,4 +1,5 @@
 import http from './HttpClient';
+import { alertDialog } from '@/component/DialogProvider';
 
 export const start = async (id) => {
     try {
@@ -6,7 +7,7 @@ export const start = async (id) => {
         return response.data;
     } catch (error) {
         console.error("Error during start:", error);
-        alert("Network can't connect server");
+        alertDialog("Network can't connect server");
         throw error;
     }
 }
