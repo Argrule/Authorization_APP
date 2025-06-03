@@ -90,7 +90,7 @@ const Settings = () => {
             <p>Revoke & Replace</p>
             <input
                 name="name"
-                className="item prefix"
+                className="item prefix settings-input"
                 type="text"
                 placeholder="current name>"
                 autoComplete="off"
@@ -99,41 +99,40 @@ const Settings = () => {
             />
             <input
                 name="mnemonic"
-                className="item prefix"
+                className="item prefix settings-input"
                 type="text"
                 placeholder="current mnemonic>"
                 autoComplete="off"
                 value={mnemonic}
                 onChange={handleInput}
             />
-            <div className="input-wrapper">
+            <div className="input-wrapper settings-input-wrapper">
                 <input
                     name="newAddress"
-                    className="item"
+                    className="item settings-input"
                     type="text"
                     placeholder="new address (optional)>"
                     value={newAddress}
                     readOnly
                 />
-                <span className="input-icon" onClick={handleGenerate}>
+                <span className="input-icon" onClick={handleGenerate} title="Generate new mnemonic & address">
                     🔑
                 </span>
             </div>
-            <div className="show-mnemonic">
+            <div className="show-mnemonic settings-show-mnemonic">
                 <input
                     name="newMnemonic"
-                    className="item"
+                    className="item settings-input"
                     type={isShow ? "text" : "password"}
                     placeholder="new mnemonic (optional)>"
                     value={newMnemonic}
-                    readOnly // 禁用输入框
+                    readOnly
                 />
-                <span className="show-icon" onClick={() => setIsShow(!isShow)}>
+                <span className="show-icon" onClick={() => setIsShow(!isShow)} title="Show/Hide mnemonic">
                     {isShow ? "🙉" : "🙈"}
                 </span>
             </div>
-
-            <button onClick={handleSubmit}>Submit</button>
+            <button className="settings-btn" onClick={handleSubmit}>Submit</button>
         </main>
     );
 };

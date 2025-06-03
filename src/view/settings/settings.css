@@ -1,0 +1,42 @@
+.settings-input {
+  background: #232b25;
+  border: 1.5px solid #0dbc79;
+  color: #f9f9f9;
+  margin-bottom: 0.7em;
+  font-size: 1em;
+  padding: 0.55em 1em;
+  border-radius: 8px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.settings-input:focus {
+  border-color: #1de9b6;
+  box-shadow: 0 0 0 2px #0dbc7940;
+}
+.settings-input-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.7em;
+}
+.settings-show-mnemonic {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.7em;
+}
+.settings-btn {
+  width: 100%;
+  background: #0dbc79;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.08em;
+  font-weight: 600;
+  padding: 0.7em 0;
+  margin-top: 1em;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 rgba(13,188,121,0.10);
+  transition: background 0.3s, color 0.3s;
+}
+.settings-btn:hover {
+  background: #1de9b6;
+  color: #181f1b;
+}

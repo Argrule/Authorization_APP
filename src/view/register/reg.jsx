@@ -14,14 +14,14 @@ const Reg = () => {
             // 获取估算的gas值
             const gasEstimate = await contract.methods.register(name, address).estimateGas({ from: account });
             const receipt = await contract.methods.register(name, address).send({ from: account, gasLimit: gasEstimate * 2n });
-            alertDialog("Register success");
+            alertDialog("注册成功");
             localStorage.setItem("name", name);
             localStorage.setItem("addr", address);
             localStorage.setItem("pvk", privateKey);
             localStorage.setItem("mnemonic", mnemonic);
             return receipt;
         } catch (error) {
-            alertDialog("Register failed");
+            alertDialog("注册失败");
             console.error("Error during registration:", error);
         }
     };
@@ -31,9 +31,9 @@ const Reg = () => {
             const pubAddr = await contract.methods.verify(name).call();
             // 解析16进制的数值，判断是否为0
             if (parseInt(pubAddr, 16) === 0) {
-                alertDialog("User not registered, Yes");
+                alertDialog("用户未注册");
             } else {
-                alertDialog("User registered, No!!!!");
+                alertDialog("用户已注册");
                 console.log(pubAddr);
             }
         } catch (error) {

@@ -32,12 +32,13 @@ const RegContainer = (props) => {
     return (
         <main>
             <form onSubmit={handleOperation}>
-                <fieldset className="flex formField">
-                    <legend>Register</legend>
+                <fieldset className="flex formField" style={{gap: '24px'}}>
+                    <legend style={{ color: '#0dbc79' }}>Register</legend>
                     <input className="prefix" onInput={updateName} type="text" required placeholder="Name>" value={name} />
                     {/* 待生成的助记词 */}
-                    <div className="show-mnemonic">
+                    <div className="show-mnemonic" style={{display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.5em'}}>
                         <input
+                            className="prefix"
                             type={isShow ? "text" : "password"}
                             placeholder="mnemonic generating>"
                             value={mnemonic}
@@ -47,7 +48,7 @@ const RegContainer = (props) => {
                             {isShow ? "🙉" : "🙈"}
                         </span>
                     </div>
-                    <button name="test">Ready?</button>
+                    <button name="test" style={{marginBottom: '8px'}} >Ready?</button>
                     <button type="submit" name="register">Register</button>
                 </fieldset>
             </form>

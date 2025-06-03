@@ -3,15 +3,42 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px;
-    border: 1px solid #0dbc79;
-    border-radius: 5px;
+    gap: 18px;
+    border: 1.5px solid #0dbc79;
+    border-radius: 12px;
     color: #0dbc79;
-    padding: 2em;
+    background: linear-gradient(135deg, #181f1b 70%, #0dbc79 100%);
+    box-shadow: 0 4px 18px 0 rgba(13,188,121,0.10), 0 1.5px 8px 0 rgba(0,0,0,0.10);
+    padding: 1.5em 1.2em 1.2em 1.2em;
+    max-width: 400px;
+    margin: 24px auto 0 auto;
+    transition: box-shadow 0.3s, background 0.3s;
+}
+
+.card > p {
+    font-size: 1.13em;
+    font-weight: 600;
+    margin-bottom: 0.5em;
+    letter-spacing: 1px;
+    color: #0dbc79;
+    text-align: center;
 }
 
 .card .item {
-    min-width: 16em;
+    min-width: 15em;
     background-color: #111317;
     color: #0dbc79;
+    border: 1.5px solid #0dbc79;
+    border-radius: 8px;
+    font-size: 1em;
+    padding: 0.55em 1em;
+    margin-bottom: 0.2em;
+    transition: border-color 0.3s, box-shadow 0.3s, background 0.3s, color 0.3s;
+}
+
+.card .item:focus {
+    border-color: #1de9b6;
+    box-shadow: 0 0 0 2px #0dbc7940;
+    background: #232b25;
+    color: #f9f9f9;
 }

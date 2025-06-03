@@ -21,17 +21,18 @@ const Dialog = ({ open, message, delay = 1, onClose }) => {
   return (
     <div style={{
       position: 'fixed',
-      top: '0%',
+      top: '2.5%',
       left: '50%',
-      transform: open ? 'translate(-50%, 40px)' : 'translate(-50%, 0)',
+      transform: open ? 'translate(-50%, 0)' : 'translate(-50%, -30px)',
       background: 'linear-gradient(135deg, #0dbc79 60%, #1a1a1a 100%)',
       color: '#fff',
-      padding: '22px 48px',
+      padding: '16px 32px',
       borderRadius: '14px',
       zIndex: 9999,
-      minWidth: '220px',
+      minWidth: '180px',
+      maxWidth: '320px',
       textAlign: 'center',
-      fontSize: '1.15rem',
+      fontSize: '1.05rem',
       fontWeight: 500,
       boxShadow: '0 6px 32px 0 rgba(13,188,121,0.18), 0 1.5px 8px 0 rgba(0,0,0,0.12)',
       border: '2px solid #0dbc79',
@@ -44,13 +45,13 @@ const Dialog = ({ open, message, delay = 1, onClose }) => {
       {message}
       <style>{`
         @keyframes dialog-slide-in {
-          0% { opacity: 0; transform: translate(-50%, -60px); }
-          60% { opacity: 1; transform: translate(-50%, 48px); }
-          100% { opacity: 1; transform: translate(-50%, 40px); }
+          0% { opacity: 0; transform: translate(-50%, -30px); }
+          60% { opacity: 1; transform: translate(-50%, 8px); }
+          100% { opacity: 1; transform: translate(-50%, 0); }
         }
         @keyframes dialog-slide-out {
-          0% { opacity: 1; transform: translate(-50%, 40px); }
-          100% { opacity: 0; transform: translate(-50%, -60px); }
+          0% { opacity: 1; transform: translate(-50%, 0); }
+          100% { opacity: 0; transform: translate(-50%, -30px); }
         }
       `}</style>
     </div>

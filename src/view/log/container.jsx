@@ -23,22 +23,23 @@ const LogContainer = (props) => {
                 props.login(name)
             }}
             >
-                <fieldset className="flex formField">
-                    <legend>Login</legend>
+                <fieldset className="flex formField" style={{gap: '24px'}}>
+                    <legend style={{ color: '#0dbc79' }}>Login</legend>
                     <input className="prefix" onInput={updateName} type="text" required placeholder="Name>" value={name} />
-                    <div className="show-mnemonic">
+                    <div className="show-mnemonic" style={{display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.5em'}}>
                         <input
+                            className="prefix"
                             type={isShow ? "text" : "password"}
                             placeholder="private key>"
                             value={privateKey}
-                            readOnly // 禁用输入框
+                            onChange={e => setPrivateKey(e.target.value)}
                         />
                         <span className="show-icon" onClick={() => setIsShow(!isShow)}>
                             {isShow ? "🙉" : "🙈"}
                         </span>
                     </div>
 
-                    <button type="submit">Login</button>
+                    <button type="submit" style={{marginTop: '8px'}}>Login</button>
                 </fieldset>
             </form>
         </main>
