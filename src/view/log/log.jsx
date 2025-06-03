@@ -18,10 +18,10 @@ const Log = () => {
     }
     // 使用私钥对消息进行签名
     const { signature } = web3.eth.accounts.sign(uuid, pvtK);
-    const ec_msg = await login(name, uuid, signature);
-    if (ec_msg) {
+    const { code: res_status, data: ec_msg } = await login(name, uuid, signature);
+    if (res_status === 0) {
       // 私钥进行解密
-      const dc_msg = decryptWithPrivateKey(ec_msg, pvtK);      
+      const dc_msg = decryptWithPrivateKey(ec_msg, pvtK);
       localStorage.setItem("token", dc_msg);
       alert("Login success");
     } else {
