@@ -7,15 +7,12 @@ import { alertDialog } from '@/component/DialogProvider';
 const Log = () => {
   const { web3, account, contract, loading, error } = useGetWeb3();
 
-  const handleLogin = async (name) => {
+  const handleLogin = async (name, privateKey) => {
     const uuid = await start(name);
-    let pvtK = localStorage.getItem("pvk");
+    let pvtK = privateKey;
     if (!pvtK) {
-      const mnemonic = localStorage.getItem("mnemonic");
-      const { privateKey, address } = generateAccountWithMnemonic(mnemonic);
-      pvtK = privateKey;
-      localStorage.setItem("pvk", pvtK);
-      localStorage.setItem("addr", address);
+      alertDialog('请输入私钥');
+      return;
     }
     // 使用私钥对消息进行签名
     const { signature } = web3.eth.accounts.sign(uuid, pvtK);
