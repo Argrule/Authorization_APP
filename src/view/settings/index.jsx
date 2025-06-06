@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { generateAccount, generateAccountWithMnemonic } from '@/utils/privateKey';
 import useGetWeb3 from '@/web3/useGetWeb3';
 import { alertDialog } from '@/component/DialogProvider';
@@ -11,11 +11,6 @@ const Settings = () => {
     const [newAddress, setNewAddress] = useState("");   // 新地址
     const [newMnemonic, setNewMnemonic] = useState(""); // 新助记词
     const [isShow, setIsShow] = useState(false); // 显示/隐藏助记词
-
-    useEffect(() => {
-        setName(localStorage.getItem("name") || "");
-        setMnemonic(localStorage.getItem("mnemonic") || "");
-    }, []);
 
     const handleInput = (e) => {
         const { name, value } = e.target;
@@ -85,18 +80,47 @@ const Settings = () => {
         setNewAddress(address);
     }
 
+    // 移除 useEffect
+    const syncFromLocal = () => {
+        setName(localStorage.getItem("name") || "");
+        setMnemonic(localStorage.getItem("mnemonic") || "");
+    };
+
     return (
         <main className="card" autoComplete="off">
             <p>Revoke & Replace</p>
-            <input
-                name="name"
-                className="item prefix settings-input"
-                type="text"
-                placeholder="current name>"
-                autoComplete="off"
-                value={name}
-                onChange={handleInput}
-            />
+            <div style={{display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.5em', position: 'relative'}}>
+                <input
+                    name="name"
+                    className="item prefix settings-input"
+                    type="text"
+                    placeholder="current name>"
+                    autoComplete="off"
+                    value={name}
+                    onChange={handleInput}
+                    style={{width: '100%'}}
+                />
+                <span
+                    className="sync-icon"
+                    title="同步本地用户名和助记词"
+                    style={{
+                        cursor: 'pointer',
+                        fontSize: '1.15em',
+                        color: '#0dbc79',
+                        transition: 'color 0.2s',
+                        position: 'absolute',
+                        right: '10px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        background: 'none',
+                        border: 'none',
+                        lineHeight: 1
+                    }}
+                    onClick={syncFromLocal}
+                >
+                    &#x21bb;
+                </span>
+            </div>
             <input
                 name="mnemonic"
                 className="item prefix settings-input"
