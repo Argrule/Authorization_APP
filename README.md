@@ -87,3 +87,14 @@ pnpm run tauri dev
 
 ![ ] 注意，重新编译合约需要同步Auth.json给后端
 ![ ] 注意，react中使用闭包引用useState的值时，可能会导致闭包中引用的值不是最新的值（注册监听事件时，函数不变，但闭包已经过时了），所以需要使用useRef来保存最新的值，平时建议用纯函数
+
+
+## Local Storage Configuration
+
+- name: 当前登录的id
+- mnemonic: 助记词
+- addr: 当前用户公钥地址
+- pvk: 当前用户私钥
+- address: 以太坊账户地址
+- privateKey: 以太坊账户私钥
+- token: 登录认证后发放的token

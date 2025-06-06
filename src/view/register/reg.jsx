@@ -14,11 +14,15 @@ const Reg = () => {
             // 获取估算的gas值
             const gasEstimate = await contract.methods.register(name, address).estimateGas({ from: account });
             const receipt = await contract.methods.register(name, address).send({ from: account, gasLimit: gasEstimate * 2n });
-            alertDialog("注册成功");
-            localStorage.setItem("name", name);
-            localStorage.setItem("addr", address);
-            localStorage.setItem("pvk", privateKey);
-            localStorage.setItem("mnemonic", mnemonic);
+            alertDialog("注册成功，助记词已自动复制到剪贴板，请妥善保存");
+            // localStorage.setItem("name", name);
+            // localStorage.setItem("addr", address);
+            // localStorage.setItem("pvk", privateKey);
+            // 复制助记词到剪贴板
+            if (navigator.clipboard) {
+                await navigator.clipboard.writeText(mnemonic);
+            }
+            // 不再保存助记词到 localStorage
             return receipt;
         } catch (error) {
             alertDialog("注册失败");

@@ -38,8 +38,8 @@ const Config = () => {
             const { name, mnemonic, provider, address, privateKey } = dataRef.current;
             localStorage.setItem("name", name);
             localStorage.setItem("provider", provider || "http://127.0.0.1:7545");
-            localStorage.setItem("address", address);
-            localStorage.setItem("privateKey", privateKey);
+            localStorage.setItem("address", address); // 以太坊账户
+            localStorage.setItem("privateKey", privateKey); // 以太坊账户私钥
 
             if (mnemonic !== localStorage.getItem("mnemonic")) {
                 localStorage.setItem("mnemonic", mnemonic);

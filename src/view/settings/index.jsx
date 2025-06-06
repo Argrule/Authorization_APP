@@ -39,7 +39,11 @@ const Settings = () => {
             const gasEstimate = await contract.methods.modify(name, newAddress, sig).estimateGas({ from: account });
             const receipt = await contract.methods.modify(name, newAddress, sig).send({ from: account, gasLimit: gasEstimate * 2n });
             console.log("Transaction receipt:", receipt);
-            alertDialog("更换成功");
+            // 自动复制新助记词到剪贴板
+            if (newMnemonic && navigator.clipboard) {
+                await navigator.clipboard.writeText(newMnemonic);
+            }
+            alertDialog("更换成功，新助记词已自动复制到剪贴板，请妥善保存");
         } catch (error) {
             console.error("Error during transaction:", error);
             alertDialog("更换失败，请检查区块链连接和输入信息");
