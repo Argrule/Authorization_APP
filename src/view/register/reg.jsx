@@ -23,10 +23,11 @@ const Reg = () => {
                 await navigator.clipboard.writeText(mnemonic);
             }
             // 不再保存助记词到 localStorage
-            return receipt;
+            return mnemonic; // 返回助记词以便在UI中显示
         } catch (error) {
             alertDialog("注册失败");
             console.error("Error during registration:", error);
+            return "";
         }
     };
 

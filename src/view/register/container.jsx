@@ -21,8 +21,8 @@ const RegContainer = (props) => {
         e.preventDefault();
         switch (e.nativeEvent.submitter.name) {
             case 'register':
-                await props.register(name);
-                setMnemonic(localStorage.getItem("mnemonic") || "");
+                const mnemonic = await props.register(name);
+                setMnemonic(mnemonic);
                 break;
             case 'test':
                 props.test(name);
